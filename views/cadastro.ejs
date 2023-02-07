@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MongdyPlay</title>
+    <link rel="stylesheet" href="/stylesheet/home.css">
+    <link rel="shortcut icon" href="/img/logos/musica.ico" type="image/x-icon">
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li>
+                <a href="/"><img src="/img/logos/logo-off.png" alt="Logo do Mongdy"></a>
+            </li>
+            <li>
+                <a href="/"><i class="bi bi-box-arrow-right"></i></i></a> </i>
+            </li>
+        </ul>
+    </nav>
+
+    <section id="add">
+        <h2>Cadastrar uma nova música</h2>
+
+        <form action="/cad" method="POST">
+
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" id="nome" required autocomplete="off">
+
+            <label for="artista">Artista:</label>
+            <input type="text" name="nome_artista" id="artista" required autocomplete="off">
+
+            <label for="imagem">Link da Imagem:</label>
+            <input type="text" name="link_image" id="imagem" required autocomplete="off">
+
+            <label for="audio">Link da Música:</label>
+            <input type="text" name="link_musica" id="audio" required autocomplete="off">
+
+            <button type="submit">Cadastrar</button>
+
+        </form>
+    </section>
+
+    <section id="player">
+        <h2>Gerenciar músicas</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Imagem</th>
+                    <th>Nome</th>
+                    <th>Artista</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <% playlist.forEach((music)=> { %>
+                    <tr class="musics">
+                        <td><img src="<%= music.link_image %>" alt="Imagem da musica"></td>
+                        <td>
+                            <%= music.nome_music %>
+                        </td>
+                        <td>
+                            <%= music.artist_music %>
+                        </td>
+                        <td id="actions">
+                            <a id="editMusic" href="/getById/<%= music._id %>/edit">Editar</a>
+                            <a id="deleteMusic" href="/getById/<%= music._id %>/delete">Apagar</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+
+        </table>
+    </section>
+
+
+    <% if (music != null) { %>
+        <section class="modal">
+            <div id="card">
+                <div id="card-top">
+                <h2>Atualizar música</h2>
+                <a href="/cadastro" id="fechar"><i class="bi bi-x-lg"></i></a>
+                </div>
+                <hr>
+                <form id="modal" action="/update/<%= music._id %>" method="POST">
+                    <label for="nome">Nome:</label>
+                    <input type="text" name="nome" id="nome" value="<%= music.nome_music %>" required autocomplete="off">
+                    <label for="artista">Artista:</label>
+                    <input type="text" name="nome_artista" id="nome_artista" value="<%= music.artist_music %>" required autocomplete="off">
+                    <label for="imagem">Link da Imagem:</label>
+                    <input type="text" name="link_image" id="linkImage" value="<%= music.link_image %>"required autocomplete="off">
+                    <label for="audio">Link da Música:</label>
+                    <input type="text" name="link_musica" id="audio" value="<%= music.link_music %>" required autocomplete="off">
+                    <button type="submit">Atualizar</button>
+                </form>
+            </div>
+        </section>
+    <% } %>
+
+
+    <% if (musicDelete != null) { %>
+        <section class="modal">
+            <div id="card">
+                <a href="/cadastro" id="fechar"><i class="bi bi-x-lg"></i></a>
+                <h2>Confirmação</h2>
+                <hr>
+                <p>Deseja realmente apagar a música <%= musicDelete.nome_music %></p>
+                <div id="btnConfirm">
+                    <a href="/delete/<%= musicDelete._id %>" id="sim">Sim</a>
+                    <a href="/cadastro" id="nao">Não</a>
+                </div>
+
+            </div>
+        </section>
+    <% } %>
+</body>
+
+</html>

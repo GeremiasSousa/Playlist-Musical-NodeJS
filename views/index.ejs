@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MongdyPlay</title>
+    <link rel="stylesheet" href="/stylesheet/home.css">
+    <link rel="shortcut icon" href="/img/logos/musica.ico" type="image/x-icon">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>
+                <a href="/" ><img src="/img/logos/logo-off.png" alt="Logo do Mongdy"></a>
+            </li>
+            <li>
+                <a  href="/cadastro" target="_blank"><i class="bi bi-gear"></i></a> </i>
+            </li>
+        </ul>
+    </nav>
+
+
+    <section id="player">
+
+        <h1 >Mongdy Play</h1>
+
+        <div >
+            <img id="currentImg" src="/img/musicoff.jpg" alt="">
+            <h2 id="currentName">Titulo</h2>
+            <p id="currentArtist">Artista</p>
+        </div>
+
+        <div>
+            <table>
+
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Nome</th>
+                        <th>Artista</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <% playlist.forEach((music)=> { %>
+                        <tr class="musics">
+                            <td class="music-img"><img src="<%= music.link_image %>" alt="Imagem da musica"></td>
+                            <td class="music-name">
+                                <%= music.nome_music %>
+                            </td>
+                            <td class="music-artist">
+                                <%= music.artist_music %>
+                            </td>
+                            <td>
+                                <audio class="audio " src="<%= music.link_music %>" ></audio>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+
+            </table>
+        </div>
+
+        
+        <section id="controls">
+            <p id="currentName1" style="display: none;">Nome da música <br> <i id="currentArtist1">nome_artista</i></p>
+            
+            <i id="prev-control" class="bi bi-skip-start-fill"></i>
+            <i id="play-control" class="bi bi-play-fill"></i>
+            <!-- <i class="bi bi-pause-fill"></i> -->
+            <i id="next-control" class="bi bi-skip-end-fill"></i>
+
+            <span id="current-duration">00 : 00</span>
+            <input id="progressbar" type="range" min="0" max="0" step="1">
+            <span id="total-duration">00:00</span>
+            <i id="vol-icon" class="bi bi-volume-up-fill"></i>
+            <input id="volume" type="range" min="0" max="100" step="1">
+        
+        </section>
+    </section>
+
+
+
+
+    <!-- Site para pegar links de musicas free: https://www.bensound.com/royalty-free-music -->
+
+    <script src="/src/player.js"></script>
+   
+</body>
+</html>
